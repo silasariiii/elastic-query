@@ -1,12 +1,8 @@
 import json
 from flask import Flask, Response
 from elasticsearch import Elasticsearch
-
 app = Flask(__name__)
-
-
-es = Elasticsearch("http://10.150.238.177:9200")
-
+es = Elasticsearch("http:...")
 @app.route('/data', methods=['GET'])
 def get_data():
     response = es.search(index="jaeger-span-2024-07-22", body={
@@ -47,7 +43,6 @@ def get_data():
                     print(f"JSONDecodeError: {e}")
                     print(f"Value causing error: {tag['value']}")
                     continue
-                
                 sender_customer = response_body.get('SenderCustomerId', 'Unknown')
                 sender_account = response_body.get('SenderAccountId', 'Unknown')
                 receiver_customer = response_body.get('ReceiverCustomerId', 'Unknown')
@@ -76,7 +71,6 @@ def get_data():
                 })
 
     return Response(json.dumps(data), mimetype='application/json')
-
 
 @app.route('/errors', methods=['GET'])
 def get_all_errors():
@@ -282,4 +276,4 @@ def get_slowest_operations():
     return Response(json.dumps(slowest_operations), mimetype='application/json')
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5065, debug=False)
+    app.run(host="0.0.0.0", port=.... , debug=False)
